@@ -1,6 +1,7 @@
+import { API_BASE } from './base.js'
 export async function createShortUrl(longUrl) {
   const token = localStorage.getItem('token');
-  const response = await fetch('/api/create', {
+  const response = await fetch(`${API_BASE}/api/create`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

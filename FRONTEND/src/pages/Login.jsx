@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { API_BASE } from '../api/base.js';
 
 export default function Login({ onAuth }){
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export default function Login({ onAuth }){
     setError('');
     setLoading(true);
     try{
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch(`${API_BASE}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),

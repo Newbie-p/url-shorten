@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { API_BASE } from '../api/base.js';
 
 export default function Dashboard(){
   const [items, setItems] = useState([]);
@@ -19,7 +20,7 @@ export default function Dashboard(){
     setIsAuthenticated(true);
     (async () => {
       try{
-        const res = await fetch('/api/create/me', {
+        const res = await fetch(`${API_BASE}/api/create/me`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -41,7 +42,7 @@ export default function Dashboard(){
     setDeleting(urlId);
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`/api/create/${urlId}`, {
+      const res = await fetch(`${API_BASE}/api/create/${urlId}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });
