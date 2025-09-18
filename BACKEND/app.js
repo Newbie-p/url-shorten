@@ -8,6 +8,7 @@ import { redirectFromShortUrl } from "./src/controller/short_url.controller.js";
 import { errorHandler } from "./src/utils/errorHandler.js";
 import cors from "cors";
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -27,7 +28,7 @@ app.get("/:id", redirectFromShortUrl);
 //error handler
 app.use(errorHandler);
 
-app.listen(3000,()=>{
+app.listen(PORT,()=>{
     connectDB();
-    console.log("server is running on http://localhost:3000");
+    console.log("server is running on port, ${PORT}");
 })
