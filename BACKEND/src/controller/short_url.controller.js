@@ -3,14 +3,17 @@ import { createShortUrlWithUser, createShortUrlWithoutUser } from "../services/s
 import wrapAsync from "../utils/tryCatchWrapper.js";
 import { getUserUrls, deleteUserUrl } from "../dao/short_url.js";
 
-export const createShortUrl = wrapAsync(async(req, res)=>{
-    const {url}  = req.body;
+export const createShortUrl = wrapAsync(async (req, res) => {
+    const { url } = req.body;
     const userId = req.userId;
-    const shortUrl = userId
+
+    const shortId = userId
         ? await createShortUrlWithUser(url, userId)
         : await createShortUrlWithoutUser(url);
-    res.send(process.env.APP_URL + shortUrl)
-})
+
+    // Return ONLY shortId (frontend will build full URL)
+    res.json({ shortId });
+});
     
 
 export const redirectFromShortUrl = wrapAsync(async(req, res)=>{
