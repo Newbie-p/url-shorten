@@ -8,8 +8,8 @@ A simple and functional URL shortener service with a completed backend and an in
 
 ```
 URL SHORTNER/
-├── BACKEND/       # Node.js backend (Completed)
-├── FRONTEND/      # React frontend (In progress)
+├── BACKEND/       # Node.js backend
+├── FRONTEND/      # React frontend
 ├── README.md
 ```
 
