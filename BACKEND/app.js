@@ -28,7 +28,7 @@ app.get("/:id", redirectFromShortUrl);
 //error handler
 app.use(errorHandler);
 
-app.listen(PORT,()=>{
-    connectDB();
-    console.log("server is running on port, ${PORT}");
+app.listen(PORT, async () => {
+    await connectDB();
+    console.log(`server is running on port ${PORT}`);
 })
