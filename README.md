@@ -1,91 +1,62 @@
-# 🌐 URL Shortener
+# URL Shortener
 
-A simple and functional URL shortener service with a completed backend and an in-progress frontend.
+Professional, full‑stack URL shortening service with a Node.js/Express backend and a React + Vite frontend.
 
----
+## Project Overview
+This repository implements a scalable URL shortener: users submit long URLs and receive compact short codes that redirect to the original address. The backend persists records in MongoDB and exposes a small REST API consumed by the frontend.
 
-## 📁 Project Structure
+## Key Features
+- Fast short-code generation (nanoid)
+- Persistent storage with MongoDB (mongoose)
+- Optional JWT-based authentication for protected actions
+- CORS-enabled API for frontend integration
 
+## Tech Stack
+- Backend: Node.js, Express, Mongoose, dotenv, nanoid, bcryptjs, jsonwebtoken
+- Frontend: React, Vite, Tailwind CSS
+
+## Prerequisites
+- Node.js (v18+ recommended)
+- MongoDB (local or hosted)
+
+## Setup & Run
+1. Backend
+   - cd BACKEND
+   - npm install
+   - Copy `.env.example` to `.env` and set variables (see below)
+   - Development: npm run dev
+   - Production: npm start
+
+2. Frontend
+   - cd FRONTEND
+   - npm install
+   - npm run dev
+
+Start backend first, then the frontend. Adjust API base URL in the frontend if needed.
+
+## Environment Variables (BACKEND/.env)
+- MONGO_URI=your_mongodb_connection_string
+- JWT_SECRET=your_jwt_secret
+- PORT=3000
+
+## API (examples)
+- POST /api/shorten — Create a short URL (body: { url, optionalCustomCode })
+- GET /:code — Redirect to the original URL
+- Authenticated endpoints use Authorization: Bearer <token>
+
+## Project Structure
 ```
-URL SHORTNER/
-├── BACKEND/       # Node.js backend (Completed)
-├── FRONTEND/      # React frontend (In progress)
-├── README.md
+url-shortner/
+├── BACKEND/   # Express API
+├── FRONTEND/  # React + Vite app
+└── README.md
 ```
 
----
+## Contributing
+Contributions welcome. Open an issue to discuss major changes before submitting a pull request. Keep commits focused and include clear descriptions.
 
-## ⚙️ Backend Details
+## License
+This project uses the ISC license (see BACKEND/package.json).
 
-- **Language/Framework**: Node.js with Express
-- **Database**: MongoDB
-- **Features**:
-  - Create short links for long URLs
-  - Redirect to original URLs using short codes
-  - Centralized error handling
-
-### 🔧 How to Run Backend
-
-1. Navigate to the backend directory:
-
-```bash
-cd BACKEND
-```
-
-2. Install dependencies:
-
-```bash
-npm install
-```
-
-3. Set up your `.env` file with the following variables:
-
-```
-MONGO_URI=<your-mongodb-uri>
-PORT=3000
-```
-
-4. Start the server:
-
-```bash
-npm start
-```
-
----
-
-## 🧪 API Endpoints
-
-| Method | Endpoint      | Description                      |
-|--------|---------------|----------------------------------|
-| POST   | `/api/create` | Create a short URL               |
-| GET    | `/:id`        | Redirect to the original URL     |
-
----
-
-## 🎨 Frontend
-
-- **Technology**: React.js
-- **Features**:
-  - URL input form
-  - Display shortened URL
-  - Copy to clipboard functionality
-  - Link statistics and analytics
-
----
-
-## 🚀 Deployment Plan
-
-- Backend: Will be deployed on Render or Railway
-- Frontend: Will be deployed on Vercel or Netlify
-
----
-
-## 📜 License
-
-This project is licensed under the MIT License.
-
----
-
-## 🙋‍♂️ Author
-Praful Suryawanshi
-GitHub: @Newbie-p
+## Author
+Praful Suryawanshi — GitHub: @Newbie-p
