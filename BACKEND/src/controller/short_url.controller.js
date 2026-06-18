@@ -1,26 +1,30 @@
 import { getShortUrl } from "../dao/short_url.js";
-import { createShortUrlWithUser, createShortUrlWithoutUser } from "../services/short_url.service.js";
+import { createShortUrlWithUser } from "../services/short_url.service.js";
 import wrapAsync from "../utils/tryCatchWrapper.js";
 import { getUserUrls, deleteUserUrl } from "../dao/short_url.js";
 
 export const createShortUrl = wrapAsync(async (req, res) => {
-    const { url } = req.body;
+    const { url, customAlias, expiresAt } = req.body;
     const userId = req.userId;
 
-    const shortId = userId
-        ? await createShortUrlWithUser(url, userId)
-        : await createShortUrlWithoutUser(url);
+    const shortId = await createShortUrlWithUser(url, userId, customAlias || null, expiresAt || null);
 
-    // Return ONLY shortId (frontend will build full URL)
     res.json({ shortId });
 });
     
 
 export const redirectFromShortUrl = wrapAsync(async(req, res)=>{
-    const { id } = req.params
-    const url = await getShortUrl(id)
-    if(!url) throw new Error("short URL not found")
-    res.redirect(url.full_url)
+    const { id } = req.params;
+    const url = await getShortUrl(id);
+    if(!url) throw new Error("short URL not found");
+
+    if(url.expired){
+        return res.status(410).json({
+            success: false,
+            message: "This link has expired"
+        });
+    }
+    res.redirect(url.full_url);
 })
 
 export const listMyUrls = wrapAsync(async(req, res)=>{

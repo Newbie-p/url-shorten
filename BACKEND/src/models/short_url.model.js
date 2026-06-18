@@ -22,6 +22,16 @@ const shortUrlSchema = new mongoose.Schema({
     user:{
         type: mongoose.Schema.Types.ObjectId,
         ref:"User",
+    },
+
+    customAlias:{
+        type: Boolean,
+        default: false,
+    },
+
+    expiresAt:{
+        type: Date,
+        default: null,
     }
 }, { timestamps: true });
 
