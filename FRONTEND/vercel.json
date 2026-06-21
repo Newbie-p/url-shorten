@@ -1,8 +1,5 @@
 {
   "rewrites": [
-    {
-      "source": "/:shortId",
-      "destination": "https://url-shorten-m84p.onrender.com/:shortId"
-    }
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
