@@ -1,12 +1,18 @@
 import Redis from "ioredis";
 
 const redis = new Redis(process.env.REDIS_URL, {
-    maxRetriesPerRequest: 3,
+    maxRetriesPerRequest: null,
     enableReadyCheck: true,
     retryStrategy(times){
-        if(times > 3) return null;
-        return Math.min(times*200, 1000);
+        return Math.min(times*100, 2000);
+    },
+    reconnectOnError(err) {
+    const targetError = 'READONLY';
+    if (err.message.includes(targetError)) {
+      return true; // reconnect on this specific error
     }
+    return false;
+  }
 });
 
 redis.on("connect", ()=>console.log("redis connected"));
