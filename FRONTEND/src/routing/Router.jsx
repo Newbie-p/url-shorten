@@ -5,6 +5,8 @@ import Navbar from '../components/Navbar.jsx';
 import Login from '../pages/Login.jsx';
 import Register from '../pages/Register.jsx';
 import Dashboard from '../pages/Dashboard.jsx';
+import Analytics from '../pages/Analytics.jsx';
+import Expired from '../pages/Expired.jsx';
 
 function Protected({ children, authed }){
   if (!authed) return <Navigate to="/login" replace />;
@@ -33,6 +35,8 @@ export default function Router(){
         <Route path="/login" element={<Login onAuth={handleAuth} />} />
         <Route path="/register" element={<Register onAuth={handleAuth} />} />
         <Route path="/dashboard" element={<Dashboard />} />
+         <Route path="/analytics/:shortCode" element={<Analytics />} />
+         <Route path="/expired" element={<Expired />} />
       </Routes>
     </BrowserRouter>
   );

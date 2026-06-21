@@ -74,5 +74,9 @@ export const getUserUrls = async(userId) =>{
 
 export const deleteUserUrl = async(shortUrlId, userId) =>{
   const result = await urlSchema.findOneAndDelete({ _id: shortUrlId, user: userId });
+
+  if(result){
+    await redis.del(`url:${result.short_url}`);
+  }
   return result;
 }

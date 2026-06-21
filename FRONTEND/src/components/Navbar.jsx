@@ -1,91 +1,65 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Menu, X, Link2 } from 'lucide-react';
 
 export default function Navbar({ isAuthenticated, onLogout }){
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const navLink = "text-sm font-medium text-muted hover:text-paper transition-colors";
+
   return (
-    <nav className="w-full border-b border-gray-200 bg-white">
-      <div className="w-full px-3 sm:px-4 py-2 sm:py-0 min-h-14 flex flex-wrap items-center justify-between gap-y-2">
-        <Link to="/" className="font-semibold text-xl sm:text-2xl">URL Shortener</Link>
-        
-        {/* Mobile hamburger button */}
+    <nav className="w-full border-b border-line bg-ink/95 backdrop-blur sticky top-0 z-50">
+      <div className="w-full px-4 sm:px-6 py-3 flex items-center justify-between">
+        <Link to="/" className="flex items-center gap-2 font-display font-semibold text-lg sm:text-xl text-paper">
+          <span className="w-7 h-7 rounded-md bg-rust/15 flex items-center justify-center">
+            <Link2 size={15} className="text-rust" strokeWidth={2.5} />
+          </span>
+          sniplink
+        </Link>
+
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="sm:hidden p-2 rounded-md hover:bg-gray-100"
+          className="sm:hidden p-2 rounded-md text-paper hover:bg-ink-light"
           aria-label="Toggle menu"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
+          {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
         </button>
 
-        {/* Desktop navigation */}
-        <div className="hidden sm:flex items-center gap-4 sm:gap-5">
-          <Link to="/" className="text-base sm:text-lg text-gray-700 hover:text-gray-900">Home</Link>
-          <Link to="/dashboard" className="text-base sm:text-lg text-gray-700 hover:text-gray-900">Dashboard</Link>
+        <div className="hidden sm:flex items-center gap-6">
+          <Link to="/" className={navLink}>Home</Link>
+          <Link to="/dashboard" className={navLink}>Dashboard</Link>
           {isAuthenticated ? (
-            <button onClick={onLogout} className="text-base sm:text-lg text-gray-700 hover:text-gray-900">Logout</button>
+            <button onClick={onLogout} className={navLink}>Logout</button>
           ) : (
             <>
-              <Link to="/register" className="text-base sm:text-lg text-gray-700 hover:text-gray-900">Register</Link>
-              <Link to="/login" className="text-base sm:text-lg text-gray-700 hover:text-gray-900">Login</Link>
+              <Link to="/register" className={navLink}>Register</Link>
+              <Link
+                to="/login"
+                className="text-sm font-medium bg-rust text-ink px-4 py-2 rounded-lg hover:bg-rust-dim transition-colors"
+              >
+                Login
+              </Link>
             </>
           )}
         </div>
-
-        {/* Mobile navigation menu */}
-        {isMenuOpen && (
-          <div className="w-full sm:hidden mt-2 py-2 bg-white border-t border-gray-200">
-            <div className="flex flex-col space-y-2">
-              <Link 
-                to="/" 
-                className="text-base text-gray-700 hover:text-gray-900 px-3 py-2 hover:bg-gray-50"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Home
-              </Link>
-              <Link 
-                to="/dashboard" 
-                className="text-base text-gray-700 hover:text-gray-900 px-3 py-2 hover:bg-gray-50"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Dashboard
-              </Link>
-              {isAuthenticated ? (
-                <button 
-                  onClick={() => {
-                    onLogout();
-                    setIsMenuOpen(false);
-                  }} 
-                  className="text-base text-gray-700 hover:text-gray-900 px-3 py-2 hover:bg-gray-50 text-left"
-                >
-                  Logout
-                </button>
-              ) : (
-                <>
-                  <Link 
-                    to="/register" 
-                    className="text-base text-gray-700 hover:text-gray-900 px-3 py-2 hover:bg-gray-50"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Register
-                  </Link>
-                  <Link 
-                    to="/login" 
-                    className="text-base text-gray-700 hover:text-gray-900 px-3 py-2 hover:bg-gray-50"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Login
-                  </Link>
-                </>
-              )}
-            </div>
-          </div>
-        )}
       </div>
+
+      {isMenuOpen && (
+        <div className="w-full sm:hidden border-t border-line bg-ink">
+          <div className="flex flex-col px-4 py-3 gap-1">
+            <Link to="/" className="text-sm text-muted hover:text-paper px-2 py-2.5 rounded-md hover:bg-ink-light" onClick={() => setIsMenuOpen(false)}>Home</Link>
+            <Link to="/dashboard" className="text-sm text-muted hover:text-paper px-2 py-2.5 rounded-md hover:bg-ink-light" onClick={() => setIsMenuOpen(false)}>Dashboard</Link>
+            {isAuthenticated ? (
+              <button onClick={() => { onLogout(); setIsMenuOpen(false); }} className="text-sm text-muted hover:text-paper px-2 py-2.5 rounded-md hover:bg-ink-light text-left">Logout</button>
+            ) : (
+              <>
+                <Link to="/register" className="text-sm text-muted hover:text-paper px-2 py-2.5 rounded-md hover:bg-ink-light" onClick={() => setIsMenuOpen(false)}>Register</Link>
+                <Link to="/login" className="text-sm text-ink bg-rust px-2 py-2.5 rounded-md text-center mt-1 font-medium" onClick={() => setIsMenuOpen(false)}>Login</Link>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
-
-

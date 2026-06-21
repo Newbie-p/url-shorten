@@ -1,1 +1,32 @@
 @import "tailwindcss";
+
+@theme {
+  /* Colors — warm dark, single accent */
+  --color-ink: #161310;
+  --color-ink-light: #1E1A14;
+  --color-paper: #EDE6D6;
+  --color-rust: #E8743B;
+  --color-rust-dim: #C45F2C;
+  --color-muted: #5A5246;
+  --color-line: #2A2419;
+
+  /* Fonts */
+  --font-display: "Source Serif 4", Georgia, serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-paper);
+  font-family: var(--font-body);
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.45; transform: scale(0.85); }
+}
+
+.live-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}

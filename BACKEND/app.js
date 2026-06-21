@@ -4,10 +4,10 @@ import connectDB from "./src/config/mongo.config.js";
 import redis from "./src/config/redis.js";
 import short_url from "./src/routes/short_url.route.js";
 import authRoutes from "./src/routes/auth.route.js";
-dotenv.config();
 import { redirectFromShortUrl } from "./src/controller/short_url.controller.js";
 import { errorHandler } from "./src/utils/errorHandler.js";
 import cors from "cors";
+dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 

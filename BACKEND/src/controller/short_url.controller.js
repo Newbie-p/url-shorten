@@ -17,13 +17,12 @@ export const createShortUrl = wrapAsync(async (req, res) => {
 export const redirectFromShortUrl = wrapAsync(async(req, res)=>{
     const { id } = req.params;
     const url = await getShortUrl(id);
-    if(!url) throw new Error("short URL not found");
+    if(!url){
+        return res.redirect(`${process.env.FRONTEND_URL}/expired?reason=notfound`);
+    }
 
     if(url.expired){
-        return res.status(410).json({
-            success: false,
-            message: "This link has expired"
-        });
+        return res.redirect(`${process.env.FRONTEND_URL}/expired?reason=expired`);
     }
     logClickEvent(id, req); 
     res.redirect(url.full_url);
