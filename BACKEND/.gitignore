@@ -16,3 +16,6 @@ yarn-error.log*
 # IDE folders
 .vscode/
 .DS_Store
+
+#typescript
+dist/

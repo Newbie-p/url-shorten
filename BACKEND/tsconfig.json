@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "target": "es2025",
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
+        "rootDir": ".",
+        "outDir": "dist",
+        "allowJs": true,
+        "checkJs": false,
+        "strict": false,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "sourceMap": true
+    },
+    "include": ["app.js", "app.ts", "src"]
+}
